@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+float output_kp(){
+    int kp = 0.01;
+    
+    long int r_count = right_encoder.read();
+    long int l_count = -left_encoder.read();
+    long int encoder_distance = (r_count + l_count)/2;
+    
+    error = target_distance - encoder_distance;
+    
+    return kp * error;
+}
+
+bool direction; 
+
+if((output > 0) || (fabs(output) > MAX_SPEED)){
+    direction = true;
+    output = MAX_SPEED;
+}
+else if((output < 0) || ((fabs(output) < MIN_SPEED))){
+    direction = false;
+    output = MIN_SPEED
+}
+
+motor_0_speed((int)output, direction);
+motor_1_speed((int)output, direction);
+delay(20);
+
+right_encoder.write(0);
+left_encoder.write(0);
+
